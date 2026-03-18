@@ -126,6 +126,23 @@
     text-align: center;
   }
 
+  .back-to-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: var(--seafoam);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s;
+  }
+
+  .back-to-top:hover {
+    background: rgba(78,205,196,0.1);
+  }
+
   /* ===== MAIN ===== */
   #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
 
@@ -592,6 +609,7 @@
       </div>
     </div>
   </div>
+  <a href="../" class="back-to-top">← マニュアル一覧に戻る</a>
   <div class="sidebar-nav">
     <a href="#sec1"  class="nav-item"><span class="nav-number">1</span> はじめに</a>
     <a href="#sec2"  class="nav-item"><span class="nav-number">2</span> ログイン</a>
