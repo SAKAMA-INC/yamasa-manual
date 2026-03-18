@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脇口水産 商品管理アプリ 使用マニュアル</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --deep: #081629;
+    --ocean: #1a4a6b;
+    --teal: #0e8a8a;
+    --teal-light: #12a8a8;
+    --seafoam: #4ecdc4;
+    --accent: #f0a500;
+    --surface: #f4f8fb;
+    --surface2: #e8f0f7;
+    --text: #1a2a3a;
+    --text-muted: #5a7080;
+    --border: #c8dce8;
+    --white: #ffffff;
+    --sidebar-w: 280px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--navy);
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-header {
+    padding: 28px 20px 20px;
+    background: var(--deep);
+    border-bottom: 2px solid var(--teal);
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .sidebar-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .sidebar-subtitle {
+    font-size: 10px;
+    color: var(--seafoam);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-nav { padding: 16px 0; flex: 1; }
+
+  .nav-item {
+    display: block;
+    padding: 9px 20px 9px 24px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12.5px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-item:hover {
+    background: rgba(78,205,196,0.1);
+    color: var(--seafoam);
+    border-left-color: var(--seafoam);
+  }
+
+  .nav-item.active {
+    background: rgba(78,205,196,0.15);
+    color: var(--seafoam);
+    border-left-color: var(--teal-light);
+  }
+
+  .nav-number {
+    display: inline-block;
+    width: 20px;
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+  }
+
+  /* ===== MAIN ===== */
+  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+
+  .page-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 60%, var(--teal) 100%);
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(78,205,196,0.08);
+    border: 60px solid rgba(78,205,196,0.06);
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: 120px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(240,165,0,0.05);
+    border: 40px solid rgba(240,165,0,0.04);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(78,205,196,0.2);
+    border: 1px solid rgba(78,205,196,0.4);
+    color: var(--seafoam);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+
+  /* ===== CONTENT ===== */
+  .content { padding: 48px 60px; max-width: 900px; }
+
+  .section {
+    margin-bottom: 64px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--surface2);
+    position: relative;
+  }
+
+  .section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 60px; height: 2px;
+    background: var(--teal);
+  }
+
+  .section-num {
+    width: 40px; height: 40px;
+    background: var(--teal);
+    color: white;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .subsection { margin-bottom: 32px; }
+
+  .subsection-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ocean);
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--teal);
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0 8px;
+  }
+
+  p { margin-bottom: 12px; line-height: 1.85; }
+
+  /* ===== LISTS ===== */
+  ol, ul { margin: 8px 0 16px 0; padding-left: 0; }
+  ol { list-style: none; counter-reset: step; }
+  ol li { counter-increment: step; }
+
+  ol li, ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(200,220,232,0.5);
+    line-height: 1.7;
+  }
+
+  ol li:last-child, ul li:last-child { border-bottom: none; }
+
+  ol li::before {
+    content: counter(step);
+    min-width: 24px; height: 24px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  ul { list-style: none; }
+  ul li::before {
+    content: '▸';
+    color: var(--teal);
+    font-size: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(13,31,60,0.08);
+  }
+
+  table { width: 100%; border-collapse: collapse; background: white; font-size: 13px; }
+
+  thead th {
+    background: var(--navy);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  thead th:first-child { border-radius: 10px 0 0 0; }
+  thead th:last-child  { border-radius: 0 10px 0 0; }
+  tbody tr:nth-child(even) { background: var(--surface); }
+
+  tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  td strong { color: var(--ocean); font-weight: 600; }
+
+  /* ===== CALLOUTS ===== */
+  .note {
+    background: linear-gradient(135deg, #fff8e6, #fffdf5);
+    border: 1px solid #f0a500;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #7a5200;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .note::before { content: '⚠'; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .info {
+    background: linear-gradient(135deg, #e8f4ff, #f0faff);
+    border: 1px solid #90caf9;
+    border-left: 4px solid var(--ocean);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #0a3a5c;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .info::before { content: 'ℹ'; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== FLOW BOX ===== */
+  .flow-box {
+    background: var(--deep);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--seafoam);
+    line-height: 2;
+    box-shadow: inset 0 0 0 1px rgba(78,205,196,0.2);
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.85);
+    padding: 2px 0;
+  }
+
+  .flow-step .step-num {
+    color: var(--seafoam);
+    font-weight: 700;
+    min-width: 20px;
+  }
+
+  .flow-arrow { text-align: center; color: var(--teal); font-size: 16px; padding: 2px 0; }
+
+  /* ===== STATUS FLOW ===== */
+  .status-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 16px 0;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .status-pill {
+    background: var(--navy);
+    color: white;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .status-pill.done { background: var(--teal); }
+
+  .status-arrow {
+    color: var(--teal);
+    font-size: 18px;
+    padding: 0 4px;
+  }
+
+  /* ===== FEATURE CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .feature-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px rgba(13,31,60,0.04);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13,31,60,0.1);
+    border-color: var(--teal);
+  }
+
+  .feature-card .icon { font-size: 24px; margin-bottom: 8px; }
+  .feature-card .label { font-size: 12.5px; font-weight: 600; color: var(--navy); }
+
+  /* ===== TAB CARDS ===== */
+  .tab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .tab-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    box-shadow: 0 1px 4px rgba(13,31,60,0.04);
+    transition: all 0.2s;
+  }
+
+  .tab-card:hover {
+    border-color: var(--teal);
+    box-shadow: 0 4px 14px rgba(13,31,60,0.1);
+  }
+
+  .tab-badge {
+    min-width: 32px; height: 32px;
+    background: var(--teal);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .tab-card-body .tab-name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .tab-card-body .tab-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===== FAQ ===== */
+  .faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(13,31,60,0.04);
+  }
+
+  .faq-q {
+    padding: 14px 18px;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--navy);
+    background: var(--surface);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .faq-q:hover { background: var(--surface2); }
+
+  .faq-q::before {
+    content: 'Q';
+    min-width: 24px; height: 24px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .faq-a {
+    padding: 14px 18px 14px 52px;
+    font-size: 13px;
+    color: var(--text);
+    border-top: 1px solid var(--border);
+    line-height: 1.75;
+  }
+
+  /* ===== CHIP GRID ===== */
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+
+  .chip {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ocean);
+    transition: all 0.2s;
+  }
+
+  .chip:hover { background: var(--teal); border-color: var(--teal); color: white; }
+
+  /* ===== TROUBLE TABLE ===== */
+  .trouble-group {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(13,31,60,0.05);
+  }
+
+  .trouble-header {
+    background: var(--ocean);
+    color: white;
+    padding: 12px 18px;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+
+  code {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12px;
+    color: var(--ocean);
+  }
+
+  strong { font-weight: 700; }
+
+  @media (max-width: 768px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .page-hero { padding: 32px 24px; }
+    .content { padding: 24px; }
+    .hero-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🐟</div>
+      <div>
+        <div class="sidebar-title">脇口水産<br>商品管理アプリ</div>
+        <div class="sidebar-subtitle">使用マニュアル</div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <a href="#sec1"  class="nav-item"><span class="nav-number">1</span> はじめに</a>
+    <a href="#sec2"  class="nav-item"><span class="nav-number">2</span> ログイン</a>
+    <a href="#sec3"  class="nav-item"><span class="nav-number">3</span> 画面構成</a>
+    <a href="#sec4"  class="nav-item"><span class="nav-number">4</span> 出品タブ</a>
+    <a href="#sec5"  class="nav-item"><span class="nav-number">5</span> 過去出品タブ</a>
+    <a href="#sec6"  class="nav-item"><span class="nav-number">6</span> 注文タブ</a>
+    <a href="#sec7"  class="nav-item"><span class="nav-number">7</span> 納品書の作成</a>
+    <a href="#sec8"  class="nav-item"><span class="nav-number">8</span> マイページ</a>
+    <a href="#sec9"  class="nav-item"><span class="nav-number">9</span> その他の機能</a>
+    <a href="#sec10" class="nav-item"><span class="nav-number">10</span> よくある質問</a>
+  </div>
+  <div class="sidebar-footer">産地（生産者）スタッフ向け</div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-badge">📋 産地（生産者）スタッフ向け</div>
+    <div class="hero-title">脇口水産<br>商品管理アプリ 使用マニュアル</div>
+    <div class="hero-subtitle">出品・注文管理・納品書作成を一貫して行う業務管理アプリ</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== 1. はじめに ===== -->
+    <section class="section" id="sec1">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2 class="section-title">はじめに</h2>
+      </div>
+      <p>本アプリは、産地（生産者）の皆様が商品の出品から注文管理、納品書の作成までを一貫して行うためのアプリです。</p>
+      <div class="card-grid">
+        <div class="feature-card"><div class="icon">🐟</div><div class="label">商品の出品</div></div>
+        <div class="feature-card"><div class="icon">📦</div><div class="label">注文管理</div></div>
+        <div class="feature-card"><div class="icon">📄</div><div class="label">納品書作成</div></div>
+        <div class="feature-card"><div class="icon">🕐</div><div class="label">過去出品の管理</div></div>
+        <div class="feature-card"><div class="icon">💬</div><div class="label">運営とのメッセージ</div></div>
+      </div>
+    </section>
+
+    <!-- ===== 2. ログイン ===== -->
+    <section class="section" id="sec2">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2 class="section-title">ログイン</h2>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">ログイン手順</h3>
+        <ol>
+          <li>アプリを起動します</li>
+          <li><strong>メールアドレス</strong>と<strong>パスワード</strong>を入力します</li>
+          <li>「ログイン」ボタンをタップします</li>
+        </ol>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">パスワードを忘れた場合</h3>
+        <ol>
+          <li>ログイン画面の<strong>「パスワードをお忘れの方」</strong>をタップします</li>
+          <li>登録済みのメールアドレスを入力します</li>
+          <li>パスワードリセットメールが届きますので、メールの案内に従って再設定してください</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 3. 画面構成 ===== -->
+    <section class="section" id="sec3">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2 class="section-title">アプリの画面構成</h2>
+      </div>
+      <p>アプリは画面下部の<strong>4つのタブ</strong>で構成されています。</p>
+      <div class="tab-grid">
+        <div class="tab-card">
+          <div class="tab-badge">1</div>
+          <div class="tab-card-body">
+            <div class="tab-name">過去出品</div>
+            <div class="tab-desc">過去に出品した商品の一覧・編集</div>
+          </div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-badge">2</div>
+          <div class="tab-card-body">
+            <div class="tab-name">出品</div>
+            <div class="tab-desc">新しい商品の出品</div>
+          </div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-badge">3</div>
+          <div class="tab-card-body">
+            <div class="tab-name">注文</div>
+            <div class="tab-desc">受注した注文の管理・加工対応・納品書作成</div>
+          </div>
+        </div>
+        <div class="tab-card">
+          <div class="tab-badge">4</div>
+          <div class="tab-card-body">
+            <div class="tab-name">マイページ</div>
+            <div class="tab-desc">アカウント設定・出荷履歴・ログアウト</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. 出品タブ ===== -->
+    <section class="section" id="sec4">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2 class="section-title">出品タブ — 商品を出品する</h2>
+      </div>
+      <p>商品の出品は<strong>2ステップ</strong>で行います。</p>
+
+      <div class="subsection">
+        <h3 class="subsection-title">ステップ1: 商品情報の登録</h3>
+        <p>「出品」タブを開くと、商品情報の入力画面が表示されます。</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>商品名</strong></td><td>商品の名前（例: 本マグロ、カツオ）</td></tr>
+              <tr><td><strong>サイズ</strong></td><td>商品のサイズ（例: 大、中、小）</td></tr>
+              <tr><td><strong>単位</strong></td><td>販売単位（kg、尾 など）</td></tr>
+              <tr><td><strong>単価</strong></td><td>販売価格</td></tr>
+              <tr><td><strong>原価</strong></td><td>仕入れ原価</td></tr>
+              <tr><td><strong>在庫数</strong></td><td>出品する数量</td></tr>
+              <tr><td><strong>加工状態</strong></td><td>加工処理の種類（下記参照）</td></tr>
+              <tr><td><strong>温度帯</strong></td><td>冷蔵 / 冷凍 / 常温</td></tr>
+              <tr><td><strong>箱サイズ</strong></td><td>配送箱のサイズ（60〜160サイズ）</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>加工状態の種類</h4>
+        <div class="chip-grid">
+          <div class="chip">選択なし</div>
+          <div class="chip">内臓処理</div>
+          <div class="chip">ウロコ処理</div>
+          <div class="chip">エラ処理</div>
+          <div class="chip">内臓,ウロコ処理</div>
+          <div class="chip">内臓,エラ処理</div>
+          <div class="chip">ウロコ,エラ処理</div>
+          <div class="chip">内臓,エラ,ウロコ処理</div>
+          <div class="chip">加工不可</div>
+        </div>
+
+        <h4>複数商品の登録</h4>
+        <ul>
+          <li>1回の出品で<strong>複数の商品</strong>を登録できます</li>
+          <li>商品を追加するには画面の追加ボタンをタップしてください</li>
+          <li>不要な商品は左にスワイプして削除できます</li>
+          <li>出品したい商品の<strong>チェックボックス</strong>にチェックを入れてください</li>
+        </ul>
+        <div class="info">入力が完了したら、<strong>「次へ」</strong>ボタンをタップします。</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">ステップ2: 出品詳細の設定</h3>
+
+        <h4>基本情報</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>タイトル</strong></td><td>出品の見出し（例: 「本日水揚げ 本マグロ」）</td></tr>
+              <tr><td><strong>詳細説明</strong></td><td>商品の特徴・アピールポイント</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>画像・動画</h4>
+        <ul>
+          <li><strong>画像の追加</strong>: カメラで撮影、またはアルバムから選択して商品画像を添付します</li>
+          <li><strong>YouTube URL</strong>: 商品紹介動画のURLを貼り付けることもできます</li>
+        </ul>
+
+        <h4>配送設定</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>出荷日</strong></td><td>カレンダーから出荷可能日を選択（複数選択可）</td></tr>
+              <tr><td><strong>リードタイム</strong></td><td>注文から出荷までの日数</td></tr>
+              <tr><td><strong>配送方法</strong></td><td>熊野小型便 / 和水便 / 星法運輸 / 佐川急便 / ヤマト便 / 自社便</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>税率設定</h4>
+        <div class="chip-grid">
+          <div class="chip">軽減税率（8%）</div>
+          <div class="chip">標準税率（10%）</div>
+        </div>
+
+        <h4>公開設定</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>設定</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>公開</strong></td><td>すべてのお客様に表示</td></tr>
+              <tr><td><strong>非公開</strong></td><td>お客様に表示しない</td></tr>
+              <tr><td><strong>特定顧客限定公開</strong></td><td>選択したお客様のみに表示</td></tr>
+              <tr><td><strong>常時公開</strong></td><td>常に公開状態を維持</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4>出品タイプ</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>タイプ</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>当日出荷</strong></td><td>当日水揚げ・即日発送</td></tr>
+              <tr><td><strong>日付指定可</strong></td><td>お客様が配送日を指定可能</td></tr>
+              <tr><td><strong>おまかせボックス</strong></td><td>セット商品として販売</td></tr>
+              <tr><td><strong>加工冷凍</strong></td><td>加工済み冷凍商品</td></tr>
+              <tr><td><strong>水揚げ次第発送</strong></td><td>水揚げ後に順次発送</td></tr>
+              <tr><td><strong>予約注文</strong></td><td>事前予約を受付</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info">すべての設定が完了したら、<strong>「出品する」</strong>ボタンをタップして出品を完了します。</div>
+      </div>
+    </section>
+
+    <!-- ===== 5. 過去出品タブ ===== -->
+    <section class="section" id="sec5">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2 class="section-title">過去出品タブ — 過去の出品を確認・編集する</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">出品一覧の確認</h3>
+        <p>「過去出品」タブを開くと、これまでに出品した商品の一覧が表示されます。スクロールすると過去の出品が順に読み込まれます。</p>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">顧客で絞り込む</h3>
+        <ol>
+          <li>画面右上の<strong>「検索」</strong>ボタンをタップします</li>
+          <li>顧客名で検索し、お客様を選択します</li>
+          <li>そのお客様向けの出品のみが表示されます</li>
+          <li>絞り込みを解除するには、再度「検索」から解除してください</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">出品を編集する</h3>
+        <ol>
+          <li>一覧から確認したい出品をタップします</li>
+          <li>商品詳細画面で右上のメニューから<strong>「編集」</strong>を選択します</li>
+          <li>商品情報を修正します</li>
+          <li><strong>「次へ」</strong>をタップして変更を保存します</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 6. 注文タブ ===== -->
+    <section class="section" id="sec6">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2 class="section-title">注文タブ — 注文を管理する</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">注文管理の流れ</h3>
+        <div class="status-flow">
+          <div class="status-pill">加工未対応</div>
+          <div class="status-arrow">→</div>
+          <div class="status-pill">加工対応済み</div>
+          <div class="status-arrow">→</div>
+          <div class="status-pill">納品書未対応</div>
+          <div class="status-arrow">→</div>
+          <div class="status-pill done">対応済み</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">4つのステータス切替</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>セグメント</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>加工未対応</strong></td><td>加工処理がまだの注文</td></tr>
+              <tr><td><strong>加工対応済み</strong></td><td>加工が完了し、出荷待ちの注文</td></tr>
+              <tr><td><strong>納品書未対応</strong></td><td>納品書が未作成の注文</td></tr>
+              <tr><td><strong>対応済み</strong></td><td>すべての処理が完了した注文</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">表示方法の切替</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>表示方法</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>全て表示（魚種順）</strong></td><td>全注文を魚種でソートして表示</td></tr>
+              <tr><td><strong>ロイン</strong></td><td>ロイン加工の注文のみ表示</td></tr>
+              <tr><td><strong>柵加工</strong></td><td>柵加工の注文のみ表示</td></tr>
+              <tr><td><strong>冷凍</strong></td><td>冷凍商品の注文のみ表示</td></tr>
+              <tr><td><strong>お客様ごとに表示</strong></td><td>顧客別にまとめて表示</td></tr>
+              <tr><td><strong>全て表示（更新順）</strong></td><td>更新日時の新しい順に表示</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">注文詳細の確認</h3>
+        <p>注文をタップすると、以下の情報が表示されます。</p>
+        <ul>
+          <li><strong>注文者情報</strong>: お客様の名前・住所・電話番号</li>
+          <li><strong>注文商品</strong>: 商品名・数量・金額</li>
+          <li><strong>加工指示</strong>: 内臓処理・ウロコ処理などの指示内容</li>
+          <li><strong>配送希望日</strong>: お客様の希望配送日</li>
+          <li><strong>支払方法</strong>: 振込 / クレジットカード / Apple Pay / Paidy翌月払い / PayPay / LINE Pay</li>
+          <li><strong>配送方法</strong>: 配送業者の情報</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">注文詳細でできる操作（メニューボタン）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>操作</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>出荷確定を元に戻す</strong></td><td>出荷状態をリセットする</td></tr>
+              <tr><td><strong>納品書を表示する</strong></td><td>作成済みの納品書PDFを表示</td></tr>
+              <tr><td><strong>領収書を表示する</strong></td><td>領収書PDFを表示</td></tr>
+              <tr><td><strong>この注文を編集する</strong></td><td>注文内容を修正する</td></tr>
+              <tr><td><strong>この注文を削除する</strong></td><td>注文を削除する</td></tr>
+              <tr><td><strong>この注文をキャンセルする</strong></td><td>注文をキャンセルする</td></tr>
+              <tr><td><strong>この注文を複製する</strong></td><td>同じ内容で新しい注文を作成</td></tr>
+              <tr><td><strong>注文をクリップボードにコピーする</strong></td><td>注文内容をテキストとしてコピー</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. 納品書の作成 ===== -->
+    <section class="section" id="sec7">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2 class="section-title">納品書の作成</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">作成手順</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 注文タブで「納品書未対応」セグメントを選択</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">2</span> 対象の注文をタップして詳細画面を開く</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">3</span>「納品書作成」ボタンをタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">4</span> 出荷日・出荷数量を入力</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">5</span>「確認する」ボタンをタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">6</span>「納品書を作成する」をタップして完了</div>
+        </div>
+        <div class="info">作成完了後、注文のステータスが<strong>「対応済み」</strong>に更新されます。</div>
+
+        <h4>入力項目</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>入力項目</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>出荷日</strong></td><td>実際に出荷する日付を選択</td></tr>
+              <tr><td><strong>出荷数量</strong></td><td>各商品の出荷数量を入力</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">納品書・領収書の確認</h3>
+        <p>作成済みの納品書・領収書は、注文詳細画面の右上メニューから<strong>「納品書を表示する」</strong>または<strong>「領収書を表示する」</strong>で確認できます。PDFとして表示されます。</p>
+      </div>
+    </section>
+
+    <!-- ===== 8. マイページ ===== -->
+    <section class="section" id="sec8">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <h2 class="section-title">マイページ</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">アプリ情報</h3>
+        <ul>
+          <li>アプリのバージョン</li>
+          <li>ログイン中のユーザー名</li>
+          <li>販売者名</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">登録情報の変更</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>メニュー</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>メールアドレス変更</strong></td><td>ログインに使用するメールアドレスを変更</td></tr>
+              <tr><td><strong>パスワード再設定</strong></td><td>ログインパスワードを再設定</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">メールアドレスの変更手順</h3>
+        <ol>
+          <li>マイページの<strong>「メールアドレス変更」</strong>をタップします</li>
+          <li>新しいメールアドレスを入力します</li>
+          <li>変更を保存します</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">パスワードの再設定手順</h3>
+        <ol>
+          <li>マイページの<strong>「パスワード再設定」</strong>をタップします</li>
+          <li>登録メールアドレスにリセットメールが送信されます</li>
+          <li>メールの案内に従って新しいパスワードを設定してください</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">出荷履歴・その他</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>メニュー</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>出荷履歴</strong></td><td>過去の出荷記録を一覧で確認できます</td></tr>
+              <tr><td><strong>利用規約</strong></td><td>アプリの利用規約を表示</td></tr>
+              <tr><td><strong>プライバシーポリシー</strong></td><td>プライバシーポリシーを表示</td></tr>
+              <tr><td><strong>ログアウト</strong></td><td>アプリからログアウト</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. その他の機能 ===== -->
+    <section class="section" id="sec9">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <h2 class="section-title">その他の機能</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">メッセージ機能</h3>
+        <p>運営チームとチャット形式で連絡を取ることができます。</p>
+        <ul>
+          <li>テキストメッセージの送受信</li>
+          <li>画像の送信</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">お知らせ</h3>
+        <p>運営からのお知らせを確認できます。</p>
+        <ul>
+          <li>未読のお知らせにはバッジが表示されます</li>
+          <li>タップすると詳細を確認できます</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">顧客検索</h3>
+        <ol>
+          <li><strong>「検索」</strong>ボタンをタップします</li>
+          <li>顧客名または企業名で検索します</li>
+          <li>検索履歴が保存されるので、次回以降すぐに選択できます</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 10. FAQ ===== -->
+    <section class="section" id="sec10">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <h2 class="section-title">よくある質問（FAQ）</h2>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">出品した商品を後から編集できますか？</div>
+        <div class="faq-a">はい。「過去出品」タブから該当の商品をタップし、詳細画面のメニューから「編集」を選択して修正できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">1回の出品で複数の商品を登録できますか？</div>
+        <div class="faq-a">はい。「出品」タブの商品登録画面で、商品を複数追加してから一括で出品できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">注文のステータスはどう変わりますか？</div>
+        <div class="faq-a">「加工未対応」→「加工対応済み」→「納品書未対応」→「対応済み」の順に進みます。注文タブのセグメントで各ステータスの注文を確認できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">納品書はいつ作成できますか？</div>
+        <div class="faq-a">注文が「納品書未対応」のステータスになった段階で作成可能です。注文詳細画面から「納品書作成」ボタンをタップしてください。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">特定のお客様にだけ商品を表示することはできますか？</div>
+        <div class="faq-a">はい。出品時の公開設定で「特定顧客限定公開」を選択し、表示したいお客様を選択してください。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">パスワードを忘れてログインできません</div>
+        <div class="faq-a">ログイン画面の「パスワードをお忘れの方」からパスワードリセットメールを送信できます。メールの案内に従って再設定してください。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">注文を間違えてキャンセルした場合、元に戻せますか？</div>
+        <div class="faq-a">注文詳細画面のメニューから「この注文を複製する」を使用して、同じ内容の注文を新規作成できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">出荷確定を取り消したい場合はどうすればいいですか？</div>
+        <div class="faq-a">注文詳細画面のメニューから「出荷確定を元に戻す」を選択してください。</div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

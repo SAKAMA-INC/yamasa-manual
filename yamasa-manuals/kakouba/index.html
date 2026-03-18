@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加工場アプリ 使用マニュアル</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --deep: #081629;
+    --ocean: #1a4a6b;
+    --teal: #0e8a8a;
+    --teal-light: #12a8a8;
+    --seafoam: #4ecdc4;
+    --accent: #f0a500;
+    --accent-light: #ffd166;
+    --surface: #f4f8fb;
+    --surface2: #e8f0f7;
+    --text: #1a2a3a;
+    --text-muted: #5a7080;
+    --border: #c8dce8;
+    --white: #ffffff;
+    --sidebar-w: 280px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--navy);
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-header {
+    padding: 28px 20px 20px;
+    background: var(--deep);
+    border-bottom: 2px solid var(--teal);
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .sidebar-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .sidebar-subtitle {
+    font-size: 10px;
+    color: var(--seafoam);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-nav {
+    padding: 16px 0;
+    flex: 1;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 9px 20px 9px 24px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12.5px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-item:hover {
+    background: rgba(78,205,196,0.1);
+    color: var(--seafoam);
+    border-left-color: var(--seafoam);
+  }
+
+  .nav-item.active {
+    background: rgba(78,205,196,0.15);
+    color: var(--seafoam);
+    border-left-color: var(--teal-light);
+  }
+
+  .nav-number {
+    display: inline-block;
+    width: 20px;
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+  }
+
+  /* ===== MAIN ===== */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  .page-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 60%, var(--teal) 100%);
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(78,205,196,0.08);
+    border: 60px solid rgba(78,205,196,0.06);
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: 120px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(240,165,0,0.05);
+    border: 40px solid rgba(240,165,0,0.04);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(78,205,196,0.2);
+    border: 1px solid rgba(78,205,196,0.4);
+    color: var(--seafoam);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ===== CONTENT AREA ===== */
+  .content {
+    padding: 48px 60px;
+    max-width: 900px;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    margin-bottom: 64px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--surface2);
+    position: relative;
+  }
+
+  .section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 60px; height: 2px;
+    background: var(--teal);
+  }
+
+  .section-num {
+    width: 40px; height: 40px;
+    background: var(--teal);
+    color: white;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* ===== SUBSECTIONS ===== */
+  .subsection {
+    margin-bottom: 32px;
+  }
+
+  .subsection-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ocean);
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--teal);
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0 8px;
+  }
+
+  /* ===== PARAGRAPH ===== */
+  p {
+    margin-bottom: 12px;
+    color: var(--text);
+    line-height: 1.85;
+  }
+
+  /* ===== LISTS ===== */
+  ol, ul {
+    margin: 8px 0 16px 0;
+    padding-left: 0;
+  }
+
+  ol { list-style: none; counter-reset: step; }
+  ol li { counter-increment: step; }
+
+  ol li, ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(200,220,232,0.5);
+    line-height: 1.7;
+  }
+
+  ol li:last-child, ul li:last-child { border-bottom: none; }
+
+  ol li::before {
+    content: counter(step);
+    min-width: 24px; height: 24px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  ul { list-style: none; }
+  ul li::before {
+    content: '▸';
+    color: var(--teal);
+    font-size: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(13,31,60,0.08);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 13px;
+  }
+
+  thead th {
+    background: var(--navy);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  thead th:first-child { border-radius: 10px 0 0 0; }
+  thead th:last-child  { border-radius: 0 10px 0 0; }
+
+  tbody tr:nth-child(even) { background: var(--surface); }
+
+  tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td strong {
+    color: var(--ocean);
+    font-weight: 600;
+  }
+
+  /* ===== CALLOUT / NOTE ===== */
+  .note {
+    background: linear-gradient(135deg, #fff8e6, #fffdf5);
+    border: 1px solid #f0a500;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #7a5200;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .note::before {
+    content: '⚠';
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .info {
+    background: linear-gradient(135deg, #e8f4ff, #f0faff);
+    border: 1px solid #90caf9;
+    border-left: 4px solid var(--ocean);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #0a3a5c;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .info::before {
+    content: 'ℹ';
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== CODE / FLOW ===== */
+  .flow-box {
+    background: var(--deep);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-family: 'Noto Sans JP', monospace;
+    font-size: 13px;
+    color: var(--seafoam);
+    line-height: 2;
+    box-shadow: inset 0 0 0 1px rgba(78,205,196,0.2);
+  }
+
+  .flow-box .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.85);
+    padding: 2px 0;
+  }
+
+  .flow-step .step-num {
+    color: var(--seafoam);
+    font-weight: 700;
+    min-width: 20px;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: var(--teal);
+    font-size: 16px;
+    padding: 2px 0;
+  }
+
+  /* ===== FEATURE CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .feature-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px rgba(13,31,60,0.04);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13,31,60,0.1);
+    border-color: var(--teal);
+  }
+
+  .feature-card .icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .feature-card .label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  /* ===== SEGMENT CHIPS ===== */
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .chip {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ocean);
+    transition: all 0.2s;
+  }
+
+  .chip:hover {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: white;
+  }
+
+  /* ===== TROUBLE TABLE ===== */
+  .trouble-group {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(13,31,60,0.05);
+  }
+
+  .trouble-header {
+    background: var(--ocean);
+    color: white;
+    padding: 12px 18px;
+    font-weight: 700;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trouble-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trouble-row:last-child { border-bottom: none; }
+
+  .trouble-cause {
+    padding: 12px 16px;
+    background: #fafcff;
+    border-right: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trouble-cause::before { content: '❓'; font-size: 12px; }
+
+  .trouble-fix {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trouble-fix::before { content: '✅'; font-size: 12px; }
+
+  /* ===== DELIVERY TABLE ===== */
+  .delivery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .delivery-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(13,31,60,0.04);
+  }
+
+  .delivery-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    background: var(--teal);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .delivery-name {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-box {
+    background: linear-gradient(135deg, var(--navy), var(--ocean));
+    border-radius: 14px;
+    padding: 32px;
+    text-align: center;
+    color: white;
+    margin-top: 16px;
+  }
+
+  .contact-box h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .contact-box p {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 16px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .contact-btn:hover { background: var(--teal-light); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .page-hero { padding: 32px 24px; }
+    .content { padding: 24px; }
+    .hero-title { font-size: 26px; }
+  }
+
+  strong { font-weight: 700; }
+  code {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12px;
+    color: var(--ocean);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🐟</div>
+      <div>
+        <div class="sidebar-title">加工場アプリ</div>
+        <div class="sidebar-subtitle">使用マニュアル v1.0</div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <a href="#sec1" class="nav-item"><span class="nav-number">1</span> はじめに</a>
+    <a href="#sec2" class="nav-item"><span class="nav-number">2</span> ログイン・認証</a>
+    <a href="#sec3" class="nav-item"><span class="nav-number">3</span> 画面構成</a>
+    <a href="#sec4" class="nav-item"><span class="nav-number">4</span> 注文管理</a>
+    <a href="#sec5" class="nav-item"><span class="nav-number">5</span> 納品書の登録</a>
+    <a href="#sec6" class="nav-item"><span class="nav-number">6</span> 出荷確定</a>
+    <a href="#sec7" class="nav-item"><span class="nav-number">7</span> メッセージ機能</a>
+    <a href="#sec8" class="nav-item"><span class="nav-number">8</span> マイページ</a>
+    <a href="#sec9" class="nav-item"><span class="nav-number">9</span> よくある操作フロー</a>
+    <a href="#sec10" class="nav-item"><span class="nav-number">10</span> トラブルシューティング</a>
+    <a href="#delivery" class="nav-item"><span class="nav-number">✦</span> 配送業者一覧</a>
+
+  </div>
+  <div class="sidebar-footer">最終更新: 2026年3月18日</div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-badge">📋 産地（生産者）スタッフ向け</div>
+    <div class="hero-title">加工場アプリ<br>使用マニュアル</div>
+    <div class="hero-subtitle">水産物流通プラットフォーム「サカマ」連携 業務管理アプリ</div>
+    <div class="hero-meta">
+      <span>📅 最終更新: 2026年3月18日</span>
+      <span>📱 iOS 15.0 以上対応</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== 1. はじめに ===== -->
+    <section class="section" id="sec1">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2 class="section-title">はじめに</h2>
+      </div>
+      <p>加工場アプリは、水産物流通プラットフォーム「サカマ」と連携した、産地（生産者）向けの業務管理アプリです。以下の業務をアプリ上で行えます。</p>
+      <div class="card-grid">
+        <div class="feature-card"><div class="icon">📦</div><div class="label">受注確認・管理</div></div>
+        <div class="feature-card"><div class="icon">⚙️</div><div class="label">加工対応の進捗管理</div></div>
+        <div class="feature-card"><div class="icon">📄</div><div class="label">納品書の作成・登録</div></div>
+        <div class="feature-card"><div class="icon">🚢</div><div class="label">出荷確定処理</div></div>
+        <div class="feature-card"><div class="icon">💬</div><div class="label">担当者とのメッセージ</div></div>
+        <div class="feature-card"><div class="icon">👤</div><div class="label">アカウント情報の管理</div></div>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">動作環境</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>要件</th></tr></thead>
+            <tbody>
+              <tr><td><strong>対応OS</strong></td><td>iOS 15.0 以上</td></tr>
+              <tr><td><strong>対応デバイス</strong></td><td>iPhone / iPad</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. ログイン ===== -->
+    <section class="section" id="sec2">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2 class="section-title">ログイン・認証</h2>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">2.1 ログイン</h3>
+        <ol>
+          <li>アプリを起動します</li>
+          <li>ログイン画面が表示されます</li>
+          <li><strong>メールアドレス</strong>と<strong>パスワード</strong>を入力します</li>
+          <li><strong>「ログイン」</strong>ボタンをタップします</li>
+          <li>認証が成功するとメイン画面に遷移します</li>
+        </ol>
+        <div class="note">ログイン情報はキーチェーンに保存されるため、次回以降は自動入力されます。</div>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">2.2 パスワードを忘れた場合</h3>
+        <ol>
+          <li>ログイン画面で<strong>「パスワード再設定」</strong>をタップします</li>
+          <li>登録済みの<strong>メールアドレス</strong>を入力します</li>
+          <li><strong>「送信」</strong>ボタンをタップします</li>
+          <li>届いたメール内のリンクからパスワードを再設定します</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 3. 画面構成 ===== -->
+    <section class="section" id="sec3">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2 class="section-title">画面構成</h2>
+      </div>
+      <p>アプリは下部の<strong>2つのタブ</strong>で構成されています。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>タブ</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td><strong>注文</strong></td><td>注文の一覧・詳細・納品書管理</td></tr>
+            <tr><td><strong>マイページ</strong></td><td>アカウント設定・出荷履歴</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">3.1 注文タブの4つのセグメント</h3>
+        <p>注文タブには上部に<strong>4つの切り替えセグメント</strong>があります。</p>
+        <div class="chip-grid">
+          <div class="chip">📌 加工未対応</div>
+          <div class="chip">✅ 加工対応済み</div>
+          <div class="chip">📄 納品書未対応</div>
+          <div class="chip">✔ 納品書対応済み</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>セグメント</th><th>表示内容</th></tr></thead>
+            <tbody>
+              <tr><td><strong>加工未対応</strong></td><td>まだ加工処理が完了していない注文</td></tr>
+              <tr><td><strong>加工対応済み</strong></td><td>加工処理が完了した注文</td></tr>
+              <tr><td><strong>納品書未対応</strong></td><td>納品書がまだ登録されていない注文</td></tr>
+              <tr><td><strong>納品書対応済み</strong></td><td>納品書の登録が完了した注文</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. 注文管理 ===== -->
+    <section class="section" id="sec4">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2 class="section-title">注文管理</h2>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">4.1 注文一覧の表示</h3>
+        <p>注文タブを選択すると、現在の注文一覧が表示されます。</p>
+        <h4>表示の切り替え</h4>
+        <p>画面左上の<strong>「表示切替」</strong>ボタンで、一覧の表示順序を変更できます。</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>表示モード</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>すべて</strong></td><td>全商品を一覧表示</td></tr>
+              <tr><td><strong>ロイン</strong></td><td>ロイン別にグループ表示</td></tr>
+              <tr><td><strong>サク</strong></td><td>サク別にグループ表示</td></tr>
+              <tr><td><strong>冷凍</strong></td><td>冷凍商品のみ表示</td></tr>
+              <tr><td><strong>顧客別</strong></td><td>顧客ごとにグループ表示</td></tr>
+              <tr><td><strong>すべて（登録順）</strong></td><td>登録日時の新しい順に表示</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>顧客で絞り込み</h4>
+        <ol>
+          <li>画面右上の<strong>検索アイコン</strong>をタップします</li>
+          <li>顧客検索画面が開きます</li>
+          <li>顧客名または顧客コードを入力して検索します</li>
+          <li>検索結果から顧客を選択すると、その顧客の注文のみが表示されます</li>
+          <li>絞り込みを解除するには、右上の<strong>「選択解除」</strong>をタップします</li>
+        </ol>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">4.2 注文詳細の確認</h3>
+        <p>一覧から注文をタップすると、注文詳細画面が表示されます。</p>
+        <h4>注文情報（上部）</h4>
+        <ul>
+          <li>顧客名・住所・電話番号</li>
+          <li>注文日時</li>
+          <li>出荷予定日</li>
+        </ul>
+        <h4>注文商品一覧</h4>
+        <ul>
+          <li>商品名・サイズ</li>
+          <li>数量・単位</li>
+          <li>金額</li>
+        </ul>
+        <h4>注文に対する操作（メニューボタン <code>...</code>）</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>操作</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>出荷確定を元に戻す</strong></td><td>出荷確定済みの状態を取り消します</td></tr>
+              <tr><td><strong>この注文を編集する</strong></td><td>納品情報を編集します</td></tr>
+              <tr><td><strong>この注文を削除する</strong></td><td>注文と紐づく納品データを削除します（復元不可）</td></tr>
+              <tr><td><strong>この注文をキャンセルする</strong></td><td>注文をキャンセル状態にします</td></tr>
+              <tr><td><strong>この注文を複製する</strong></td><td>同じ内容で新しい注文を作成します</td></tr>
+              <tr><td><strong>注文をクリップボードにコピー</strong></td><td>注文情報をテキストとしてコピーします</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">削除した注文は復元できません。十分ご注意ください。</div>
+        <div class="info">注文詳細画面に表示されている<strong>電話番号をタップ</strong>すると、直接電話をかけることができます。</div>
+      </div>
+    </section>
+
+    <!-- ===== 5. 納品書の登録 ===== -->
+    <section class="section" id="sec5">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2 class="section-title">納品書の登録</h2>
+      </div>
+      <p>納品書未対応の注文に対して、納品データを登録する手順です。</p>
+      <div class="flow-box">
+        <div class="flow-step"><span class="step-num">1</span> 注文詳細画面を開く</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><span class="step-num">2</span>「納品データを登録」をタップ</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><span class="step-num">3</span> 商品情報を入力</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><span class="step-num">4</span>「確認する」で確認画面へ</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step"><span class="step-num">5</span>「完了」で保存・納品書対応済みに移動</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">ステップ1: 納品データ登録の開始</h3>
+        <ol>
+          <li><strong>「納品書未対応」</strong>セグメントで対象の注文をタップします</li>
+          <li>注文詳細画面が表示されます</li>
+          <li><strong>「納品データを登録」</strong>ボタンをタップします</li>
+        </ol>
+        <div class="note">このボタンは出荷確定（shipEnable）が有効な場合のみ表示されます。</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">ステップ2: 納品商品の入力</h3>
+        <h4>顧客情報（自動表示）</h4>
+        <ul>
+          <li>納品先住所・名前</li>
+          <li>電話番号</li>
+        </ul>
+        <h4>配達情報</h4>
+        <ul>
+          <li>指定配達日（出荷予定日から自動取得、変更可能）</li>
+          <li>注文メモ</li>
+        </ul>
+        <h4>商品ごとの入力</h4>
+        <ul>
+          <li>商品名・サイズ・単位（自動表示）</li>
+          <li><strong>実出荷数量（重量）</strong> — 実際に出荷する数量を入力します</li>
+          <li>チェックボックスで商品の選択/非選択を切り替えます</li>
+        </ul>
+        <div class="info">右上の<strong>「商品の追加」</strong>ボタンで、注文に無い商品を追加できます。追加した商品は左スワイプで削除できます（既存の注文商品は削除不可）。</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">ステップ3: 確認画面</h3>
+        <div class="note">配達日が未入力の場合、警告が表示されます。</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>項目</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>配達日</strong></td><td>配達予定日</td></tr>
+              <tr><td><strong>配達時間帯</strong></td><td>午前中・14-16時 など</td></tr>
+              <tr><td><strong>発送便</strong></td><td>配送方法（熊野小型便、和水便、佐川急便、ヤマト便など）</td></tr>
+              <tr><td><strong>配達伝票画像</strong></td><td>伝票の写真を添付（カメラ/フォトライブラリ）</td></tr>
+              <tr><td><strong>受取人署名</strong></td><td>受取確認の写真を添付</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">5.3 数量単位について</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>画面</th><th>使用される単位</th></tr></thead>
+            <tbody>
+              <tr><td><strong>注文商品一覧</strong></td><td>発注単位（proOrderUnit）例: 尾、匹</td></tr>
+              <tr><td><strong>納品データ</strong></td><td>価格単位（proPriceUnit）例: kg、C/S</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. 出荷確定 ===== -->
+    <section class="section" id="sec6">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2 class="section-title">出荷確定</h2>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">6.1 出荷確定の手順</h3>
+        <ol>
+          <li>納品データ登録済みの注文を開きます</li>
+          <li>出荷確定画面で顧客情報・納品商品・出荷日を確認します</li>
+          <li><strong>「出荷確定」</strong>ボタンをタップします</li>
+          <li>注文が「出荷確定」状態になります</li>
+        </ol>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">6.2 出荷確定の取り消し</h3>
+        <ol>
+          <li>注文詳細画面を開きます</li>
+          <li>右上の<strong>メニューボタン（...）</strong>をタップします</li>
+          <li><strong>「出荷確定を元に戻す」</strong>を選択します</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 7. メッセージ ===== -->
+    <section class="section" id="sec7">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2 class="section-title">メッセージ機能</h2>
+      </div>
+      <p>サカマの運営担当者とチャット形式でやり取りができます。</p>
+      <div class="subsection">
+        <h3 class="subsection-title">7.1 メッセージの確認</h3>
+        <ul>
+          <li><strong>左側</strong>: 運営からのメッセージ</li>
+          <li><strong>右側</strong>: 自分のメッセージ</li>
+        </ul>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">7.2 メッセージの送信</h3>
+        <ol>
+          <li>画面下部の入力欄に<strong>メッセージを入力</strong>します</li>
+          <li>右側の<strong>送信ボタン</strong>をタップします</li>
+        </ol>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">7.3 画像の送信</h3>
+        <ol>
+          <li>入力欄の左側にある<strong>カメラアイコン</strong>をタップします</li>
+          <li>フォトライブラリから画像を選択します</li>
+          <li>画像が送信されます</li>
+        </ol>
+      </div>
+      <div class="info">メッセージ画面に初回アクセスした際は、ウェルカムメッセージが表示されます。ご不明点などお気軽にお問い合わせください。</div>
+    </section>
+
+    <!-- ===== 8. マイページ ===== -->
+    <section class="section" id="sec8">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <h2 class="section-title">マイページ</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>項目</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ユーザー名</strong></td><td>ログイン中のユーザー名</td></tr>
+            <tr><td><strong>販売者名</strong></td><td>産地（生産者）名</td></tr>
+            <tr><td><strong>アプリバージョン</strong></td><td>例: 1.0.0 (123)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">メールアドレスの変更</h3>
+        <ol>
+          <li><strong>「メールアドレス変更」</strong>をタップします</li>
+          <li>現在のメールアドレスが表示されます</li>
+          <li><strong>新しいメールアドレス</strong>を入力します</li>
+          <li>確認のため<strong>現在のパスワード</strong>を入力します</li>
+          <li><strong>「送信」</strong>をタップします</li>
+          <li>新しいメールアドレスに確認メールが届きます</li>
+          <li>メール内のリンクをクリックして変更を完了します</li>
+        </ol>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">出荷履歴</h3>
+        <ol>
+          <li><strong>「出荷履歴」</strong>をタップします</li>
+          <li>過去の出荷済み注文が月別に表示されます</li>
+          <li>各注文をタップすると詳細を確認できます</li>
+        </ol>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">ログアウト</h3>
+        <ol>
+          <li><strong>「ログアウト」</strong>をタップします</li>
+          <li>確認ダイアログが表示されます</li>
+          <li><strong>「OK」</strong>をタップするとログアウトし、ログイン画面に戻ります</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 9. よくある操作フロー ===== -->
+    <section class="section" id="sec9">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <h2 class="section-title">よくある操作フロー</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">フロー1: 新しい注文を確認して加工対応する</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 注文タブ →「加工未対応」セグメントを選択</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">2</span> 一覧から対象の注文をタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">3</span> 注文詳細で商品・加工内容を確認</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">4</span> 加工処理を実施後、「対応済み」に更新</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">5</span> 注文が「加工対応済み」セグメントに移動</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">フロー2: 納品書を作成して出荷する</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 注文タブ →「納品書未対応」セグメントを選択</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">2</span> 対象の注文をタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">3</span>「納品データを登録」をタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">4</span> 実際の出荷数量を入力</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">5</span>「確認する」→ 配達日・配送方法を入力</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">6</span>「完了」をタップ → 納品データが保存される</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">7</span> 必要に応じて出荷確定処理を行う</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">フロー3: 特定の顧客の注文だけを確認する</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 注文タブで右上の検索アイコンをタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">2</span> 顧客名を入力して検索</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">3</span> 検索結果から顧客を選択</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">4</span> その顧客の注文のみが表示される</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">5</span> 確認後、「選択解除」で元に戻す</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">フロー4: 注文内容をコピーして共有する</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 注文詳細画面を開く</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">2</span> 右上のメニューボタン（...）をタップ</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">3</span>「注文をクリップボードにコピー」を選択</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num">4</span> LINE やメールに貼り付けて共有</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10. トラブルシューティング ===== -->
+    <section class="section" id="sec10">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <h2 class="section-title">トラブルシューティング</h2>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">🔒 ログインできない</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">メールアドレスが間違っている</div>
+          <div class="trouble-fix">登録時のメールアドレスを確認してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">パスワードが間違っている</div>
+          <div class="trouble-fix">「パスワード再設定」で新しいパスワードを設定してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">ネットワーク接続なし</div>
+          <div class="trouble-fix">Wi-Fi またはモバイルデータ通信を確認してください</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">📦 注文が表示されない</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">セグメントが違う</div>
+          <div class="trouble-fix">上部のセグメントを切り替えてください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">表示フィルターが適用されている</div>
+          <div class="trouble-fix">「表示切替」で「すべて」を選択してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">顧客絞り込みが有効</div>
+          <div class="trouble-fix">「選択解除」ボタンで絞り込みを解除してください</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">📄 「納品データを登録」ボタンが表示されない</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">出荷確定（shipEnable）が無効</div>
+          <div class="trouble-fix">運営担当者にお問い合わせください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">既に納品書対応済み</div>
+          <div class="trouble-fix">「納品書対応済み」セグメントを確認してください</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">💾 納品データが保存されない</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">配達日が未入力</div>
+          <div class="trouble-fix">配達日を入力してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">ネットワーク接続なし</div>
+          <div class="trouble-fix">Wi-Fi またはモバイルデータ通信を確認してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">出荷数量が未入力</div>
+          <div class="trouble-fix">各商品の出荷数量を入力してください</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">📱 アプリが動作しない・クラッシュする</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">一時的な不具合</div>
+          <div class="trouble-fix">アプリを完全に終了して再起動してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">OSが古い</div>
+          <div class="trouble-fix">iOS 15.0以上に更新してください</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">改善しない場合</div>
+          <div class="trouble-fix">メッセージ機能から運営担当者にお問い合わせください</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 配送業者 ===== -->
+    <section class="section" id="delivery">
+      <div class="section-header">
+        <div class="section-num">🚚</div>
+        <h2 class="section-title">配送業者一覧</h2>
+      </div>
+      <p>納品書登録時に選択可能な配送業者です。</p>
+      <div class="delivery-grid">
+        <div class="delivery-card"><div class="delivery-badge">熊</div><div class="delivery-name">熊野小型便</div></div>
+        <div class="delivery-card"><div class="delivery-badge">和</div><div class="delivery-name">和水便</div></div>
+        <div class="delivery-card"><div class="delivery-badge">星</div><div class="delivery-name">星法運輸</div></div>
+        <div class="delivery-card"><div class="delivery-badge">佐</div><div class="delivery-name">佐川急便</div></div>
+        <div class="delivery-card"><div class="delivery-badge">ヤ</div><div class="delivery-name">ヤマト便</div></div>
+        <div class="delivery-card"><div class="delivery-badge">自</div><div class="delivery-name">自社便</div></div>
+      </div>
+    </section>
+
+
+  </div>
+</main>
+
+<script>
+  // アクティブナビ
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
