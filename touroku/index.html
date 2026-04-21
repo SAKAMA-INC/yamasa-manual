@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新規ユーザー登録手順書</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --deep: #081629;
+    --ocean: #1a4a6b;
+    --teal: #0e8a8a;
+    --teal-light: #12a8a8;
+    --seafoam: #4ecdc4;
+    --accent: #f0a500;
+    --accent-light: #ffd166;
+    --surface: #f4f8fb;
+    --surface2: #e8f0f7;
+    --text: #1a2a3a;
+    --text-muted: #5a7080;
+    --border: #c8dce8;
+    --white: #ffffff;
+    --sidebar-w: 280px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--navy);
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-header {
+    padding: 28px 20px 20px;
+    background: var(--deep);
+    border-bottom: 2px solid var(--teal);
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .sidebar-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .sidebar-subtitle {
+    font-size: 10px;
+    color: var(--seafoam);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .sidebar-nav {
+    padding: 16px 0;
+    flex: 1;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 9px 20px 9px 24px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 12.5px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-item:hover {
+    background: rgba(78,205,196,0.1);
+    color: var(--seafoam);
+    border-left-color: var(--seafoam);
+  }
+
+  .nav-item.active {
+    background: rgba(78,205,196,0.15);
+    color: var(--seafoam);
+    border-left-color: var(--teal-light);
+  }
+
+  .nav-number {
+    display: inline-block;
+    width: 20px;
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+  }
+
+  .back-to-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: var(--seafoam);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s;
+  }
+
+  .back-to-top:hover {
+    background: rgba(78,205,196,0.1);
+  }
+
+  /* ===== MAIN ===== */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-height: 100vh;
+  }
+
+  .page-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 60%, var(--teal) 100%);
+    padding: 56px 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(78,205,196,0.08);
+    border: 60px solid rgba(78,205,196,0.06);
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: 120px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(240,165,0,0.05);
+    border: 40px solid rgba(240,165,0,0.04);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(78,205,196,0.2);
+    border: 1px solid rgba(78,205,196,0.4);
+    color: var(--seafoam);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ===== CONTENT AREA ===== */
+  .content {
+    padding: 48px 60px;
+    max-width: 900px;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    margin-bottom: 64px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--surface2);
+    position: relative;
+  }
+
+  .section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 60px; height: 2px;
+    background: var(--teal);
+  }
+
+  .section-num {
+    width: 40px; height: 40px;
+    background: var(--teal);
+    color: white;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* ===== SUBSECTIONS ===== */
+  .subsection {
+    margin-bottom: 32px;
+  }
+
+  .subsection-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ocean);
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--teal);
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0 8px;
+  }
+
+  /* ===== PARAGRAPH ===== */
+  p {
+    margin-bottom: 12px;
+    color: var(--text);
+    line-height: 1.85;
+  }
+
+  /* ===== LISTS ===== */
+  ol, ul {
+    margin: 8px 0 16px 0;
+    padding-left: 0;
+  }
+
+  ol { list-style: none; counter-reset: step; }
+  ol li { counter-increment: step; }
+
+  ol li, ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(200,220,232,0.5);
+    line-height: 1.7;
+  }
+
+  ol li:last-child, ul li:last-child { border-bottom: none; }
+
+  ol li::before {
+    content: counter(step);
+    min-width: 24px; height: 24px;
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  ul { list-style: none; }
+  ul li::before {
+    content: '\25B8';
+    color: var(--teal);
+    font-size: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ===== TABLES ===== */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(13,31,60,0.08);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 13px;
+  }
+
+  thead th {
+    background: var(--navy);
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  thead th:first-child { border-radius: 10px 0 0 0; }
+  thead th:last-child  { border-radius: 0 10px 0 0; }
+
+  tbody tr:nth-child(even) { background: var(--surface); }
+
+  tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  td strong {
+    color: var(--ocean);
+    font-weight: 600;
+  }
+
+  /* ===== CALLOUT / NOTE ===== */
+  .note {
+    background: linear-gradient(135deg, #fff8e6, #fffdf5);
+    border: 1px solid #f0a500;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #7a5200;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .note::before {
+    content: '\26A0';
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .info {
+    background: linear-gradient(135deg, #e8f4ff, #f0faff);
+    border: 1px solid #90caf9;
+    border-left: 4px solid var(--ocean);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #0a3a5c;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .info::before {
+    content: '\2139';
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== CODE / FLOW ===== */
+  .flow-box {
+    background: var(--deep);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-family: 'Noto Sans JP', monospace;
+    font-size: 13px;
+    color: var(--seafoam);
+    line-height: 2;
+    box-shadow: inset 0 0 0 1px rgba(78,205,196,0.2);
+  }
+
+  .flow-box .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.85);
+    padding: 2px 0;
+  }
+
+  .flow-step .step-num {
+    color: var(--seafoam);
+    font-weight: 700;
+    min-width: 20px;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: var(--teal);
+    font-size: 16px;
+    padding: 2px 0;
+  }
+
+  .flow-sub {
+    padding-left: 30px;
+    color: rgba(255,255,255,0.7);
+    font-size: 12.5px;
+  }
+
+  /* ===== CODE BLOCK ===== */
+  .code-block {
+    background: var(--deep);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    color: var(--seafoam);
+    line-height: 1.8;
+    box-shadow: inset 0 0 0 1px rgba(78,205,196,0.2);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  /* ===== FEATURE CARDS ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .feature-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+    box-shadow: 0 1px 4px rgba(13,31,60,0.04);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13,31,60,0.1);
+    border-color: var(--teal);
+  }
+
+  .feature-card .icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .feature-card .label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  /* ===== TROUBLE TABLE ===== */
+  .trouble-group {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(13,31,60,0.05);
+  }
+
+  .trouble-header {
+    background: var(--ocean);
+    color: white;
+    padding: 12px 18px;
+    font-weight: 700;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trouble-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trouble-row:last-child { border-bottom: none; }
+
+  .trouble-cause {
+    padding: 12px 16px;
+    background: #fafcff;
+    border-right: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trouble-cause::before { content: '\2753'; font-size: 12px; }
+
+  .trouble-fix {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .trouble-fix::before { content: '\2705'; font-size: 12px; }
+
+  /* ===== DATA STRUCTURE ===== */
+  .tree-box {
+    background: var(--deep);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.85);
+    line-height: 2;
+    box-shadow: inset 0 0 0 1px rgba(78,205,196,0.2);
+    overflow-x: auto;
+  }
+
+  .tree-box .tree-path {
+    color: var(--seafoam);
+    font-weight: 700;
+  }
+
+  .tree-box .tree-field {
+    color: var(--accent-light);
+  }
+
+  .tree-box .tree-comment {
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-box {
+    background: linear-gradient(135deg, var(--navy), var(--ocean));
+    border-radius: 14px;
+    padding: 32px;
+    text-align: center;
+    color: white;
+    margin-top: 16px;
+  }
+
+  .contact-box h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .contact-box p {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    #sidebar { display: none; }
+    #main { margin-left: 0; }
+    .page-hero { padding: 32px 24px; }
+    .content { padding: 24px; }
+    .hero-title { font-size: 26px; }
+  }
+
+  strong { font-weight: 700; }
+  code {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12px;
+    color: var(--ocean);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🐟</div>
+      <div>
+        <div class="sidebar-title">新規ユーザー登録</div>
+        <div class="sidebar-subtitle">手順書 v1.0</div>
+      </div>
+    </div>
+  </div>
+  <a href="../" class="back-to-top">&larr; マニュアル一覧に戻る</a>
+  <div class="sidebar-nav">
+    <a href="#sec1" class="nav-item"><span class="nav-number">1</span> 概要・前提条件</a>
+    <a href="#sec2" class="nav-item"><span class="nav-number">2</span> 招待コードの取得</a>
+    <a href="#sec3" class="nav-item"><span class="nav-number">3</span> 招待コードの送付</a>
+    <a href="#sec4" class="nav-item"><span class="nav-number">4</span> ユーザー側の登録操作</a>
+    <a href="#sec5" class="nav-item"><span class="nav-number">5</span> 登録後の確認</a>
+    <a href="#sec6" class="nav-item"><span class="nav-number">6</span> 登録後の追加設定</a>
+    <a href="#sec7" class="nav-item"><span class="nav-number">7</span> 既存会社への追加登録</a>
+    <a href="#sec8" class="nav-item"><span class="nav-number">8</span> トラブルシューティング</a>
+    <a href="#sec9" class="nav-item"><span class="nav-number">✦</span> Firestoreデータ構造</a>
+  </div>
+  <div class="sidebar-footer">最終更新: 2026年4月21日</div>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main id="main">
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="hero-badge">🔧 運営スタッフ向け</div>
+    <div class="hero-title">新規ユーザー登録<br>手順書</div>
+    <div class="hero-subtitle">サカマアプリ（yamasaApp）招待制B2Bマーケットプレイス</div>
+    <div class="hero-meta">
+      <span>📅 最終更新: 2026年4月21日</span>
+      <span>🔑 招待制登録フロー</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ===== 1. 概要・前提条件 ===== -->
+    <section class="section" id="sec1">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <h2 class="section-title">概要・前提条件</h2>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">概要</h3>
+        <p>サカマアプリ（yamasaApp）は<strong>招待制</strong>のB2Bマーケットプレイスです。新規ユーザーの登録には、事前に<strong>招待コード（= Firestore の Company ドキュメントID）</strong>を発行する必要があります。</p>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">前提条件</h3>
+        <ul>
+          <li>ウルアプリ（app-post-ios / 販売者向けアプリ）がインストール済みで、ログインできること</li>
+          <li>対象の取引先ユーザーが既にウルアプリの取引先一覧に登録されていること</li>
+        </ul>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">登録の全体フロー</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 招待コードの取得（ウルアプリから）</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">2</span> ユーザーへ招待コードを送付</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">3</span> ユーザーがアプリで新規登録</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">4</span> 登録後の確認</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">5</span> 必要に応じて追加設定</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. 招待コードの取得 ===== -->
+    <section class="section" id="sec2">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <h2 class="section-title">招待コードの取得（ウルアプリから）</h2>
+      </div>
+      <p>招待コードは、ウルアプリ（販売者向けアプリ）のマイページから取得できます。</p>
+      <div class="subsection">
+        <h3 class="subsection-title">操作手順</h3>
+        <ol>
+          <li><strong>ウルアプリ</strong>を起動してログイン</li>
+          <li>下部タブから<strong>「マイページ」</strong>を開く</li>
+          <li><strong>「招待コード取得」</strong>セクションの<strong>「取引先一覧」</strong>をタップ</li>
+          <li>ユーザー一覧が表示される（検索バーでユーザー名検索も可能）</li>
+          <li>対象の取引先ユーザーをタップ</li>
+          <li><strong>「{ユーザー名}様の招待コードをコピーしました。」</strong>とアラートが表示される</li>
+          <li>クリップボードに招待コードがコピーされる</li>
+        </ol>
+        <div class="info">コピーされる招待コードは Firestore の Company ドキュメントID（<code>version/1/companies/{companyDocument}</code>）です。</div>
+        <p>クリップボードには以下の形式でコピーされます：</p>
+        <div class="code-block">{ユーザー名}様のヤマサアプリの招待コードはこちら
+{companyDocument（招待コード）}</div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Firebase Console から直接作成する場合（取引先が未登録の場合）</h3>
+        <p>取引先一覧に対象ユーザーがいない場合は、Firebase Console で手動作成も可能です。</p>
+        <ol>
+          <li>Firebase Console にログイン</li>
+          <li>対象プロジェクトを選択</li>
+          <li>左メニュー「Firestore Database」を開く</li>
+          <li><code>version</code> &gt; <code>1</code> &gt; <code>companies</code> コレクションに移動</li>
+          <li>「ドキュメントを追加」をクリック</li>
+          <li>以下のフィールドを設定</li>
+          <li>「保存」をクリック</li>
+          <li>生成された<strong>ドキュメントID</strong>をメモ &mdash; これが招待コード</li>
+        </ol>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フィールド名</th><th>型</th><th>値</th><th>備考</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ドキュメントID</strong></td><td>-</td><td>自動ID or 任意の文字列</td><td>これが招待コードになる</td></tr>
+              <tr><td><strong>name</strong></td><td>string</td><td>会社名（例: 〇〇商店）</td><td>必須</td></tr>
+              <tr><td><strong>createdAt</strong></td><td>timestamp</td><td>現在日時</td><td>必須</td></tr>
+              <tr><td><strong>updatedAt</strong></td><td>timestamp</td><td>現在日時</td><td>必須</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. 招待コードの送付 ===== -->
+    <section class="section" id="sec3">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <h2 class="section-title">ユーザーへの招待コード送付</h2>
+      </div>
+      <p>以下の情報をユーザーに伝達します：</p>
+      <ul>
+        <li><strong>招待コード</strong>: 手順1で作成したドキュメントID</li>
+        <li><strong>アプリのダウンロードリンク</strong>（App Store / Firebase App Distribution）</li>
+      </ul>
+      <div class="info">アプリ内にも招待コードリクエスト機能があり、ユーザーが <code>s.shibata@yamasa.tokyo</code> 宛にメールを送信できます。</div>
+    </section>
+
+    <!-- ===== 4. ユーザー側の登録操作 ===== -->
+    <section class="section" id="sec4">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <h2 class="section-title">ユーザー側の登録操作（アプリ内）</h2>
+      </div>
+      <p>ユーザーが以下の操作を行います。</p>
+      <div class="subsection">
+        <h3 class="subsection-title">登録手順</h3>
+        <ol>
+          <li>アプリを起動</li>
+          <li>トップ画面で<strong>「はじめての方」</strong>をタップ</li>
+          <li>登録画面で以下の情報を入力</li>
+          <li>プライバシーポリシーに同意</li>
+          <li><strong>「はじめる」</strong>をタップ</li>
+        </ol>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>入力項目</th><th>必須</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ユーザー名</strong></td><td>はい</td><td>店舗名・会社名（例: 〇〇商店）</td></tr>
+              <tr><td><strong>メールアドレス</strong></td><td>はい</td><td>ログインに使用</td></tr>
+              <tr><td><strong>パスワード</strong></td><td>はい</td><td>8文字以上推奨</td></tr>
+              <tr><td><strong>招待コード</strong></td><td>はい</td><td>手順1で発行したコード</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">登録時にシステムが自動で行う処理</h3>
+        <div class="flow-box">
+          <div class="flow-step"><span class="step-num">1</span> 招待コード検証（Company ドキュメント存在確認）</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">2</span> Firebase Auth ユーザー作成（email/password）</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">3</span> 以下を並列実行:</div>
+          <div class="flow-sub">&bull; Company ドキュメント作成</div>
+          <div class="flow-sub">&bull; CompanyUser ドキュメント作成</div>
+          <div class="flow-sub">&bull; companyJoin API 呼び出し（招待元の会社にユーザーを紐付け）</div>
+          <div class="flow-sub">&bull; User データ取得・キャッシュ</div>
+          <div class="flow-sub">&bull; CompanyUser データ取得・キャッシュ</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><span class="step-num">4</span> メイン画面へ遷移</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. 登録後の確認 ===== -->
+    <section class="section" id="sec5">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <h2 class="section-title">登録後の確認</h2>
+      </div>
+      <p>Firebase Console で以下を確認します。</p>
+      <div class="subsection">
+        <h3 class="subsection-title">Authentication の確認</h3>
+        <ol>
+          <li><strong>Authentication</strong> &gt; 「Users」タブを開く</li>
+          <li>新しいユーザーのメールアドレスと UID が表示されることを確認</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Firestore companyUsers の確認</h3>
+        <p><code>version/1/companyUsers/{firebaseUid}</code> を開き、以下のフィールドが正しく設定されていることを確認します。</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フィールド</th><th>確認内容</th></tr></thead>
+            <tbody>
+              <tr><td><strong>firebaseUid</strong></td><td>Firebase Auth の UID と一致</td></tr>
+              <tr><td><strong>companyDocument</strong></td><td>招待コードの会社ドキュメントIDと一致</td></tr>
+              <tr><td><strong>email</strong></td><td>登録したメールアドレス</td></tr>
+              <tr><td><strong>name</strong></td><td>登録したユーザー名</td></tr>
+              <tr><td><strong>isAdmin</strong></td><td>未設定（null）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Firestore users の確認</h3>
+        <p><code>version/1/users/</code> 配下で、<code>companyDocument</code> フィールドから該当会社のユーザーを検索して確認します。</p>
+      </div>
+    </section>
+
+    <!-- ===== 6. 登録後の追加設定 ===== -->
+    <section class="section" id="sec6">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <h2 class="section-title">登録後の追加設定（必要に応じて）</h2>
+      </div>
+      <div class="subsection">
+        <h3 class="subsection-title">管理者権限の付与</h3>
+        <p>CompanyUser の <code>isAdmin</code> フラグを <code>true</code> に設定します。</p>
+        <ol>
+          <li>Firestore &gt; <code>version/1/companyUsers/{firebaseUid}</code> を開く</li>
+          <li><code>isAdmin</code> フィールドを追加（boolean: <code>true</code>）</li>
+        </ol>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">ユーザー詳細情報の設定</h3>
+        <p><code>version/1/users/{firebaseUid}</code> で以下を設定可能です。</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フィールド</th><th>型</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>userType</strong></td><td>number</td><td>0: アプリ事前決済 / 1: アプリ事後決済 / 2: Pro事後決済</td></tr>
+              <tr><td><strong>postCode</strong></td><td>string</td><td>郵便番号</td></tr>
+              <tr><td><strong>city</strong></td><td>string</td><td>都市</td></tr>
+              <tr><td><strong>town</strong></td><td>string</td><td>町域</td></tr>
+              <tr><td><strong>area</strong></td><td>string</td><td>エリア</td></tr>
+              <tr><td><strong>tel</strong></td><td>string</td><td>電話番号</td></tr>
+              <tr><td><strong>mobile</strong></td><td>string</td><td>携帯番号</td></tr>
+              <tr><td><strong>shopCategory</strong></td><td>string</td><td>店舗カテゴリ</td></tr>
+              <tr><td><strong>customerCode</strong></td><td>string</td><td>顧客コード</td></tr>
+              <tr><td><strong>attributeType</strong></td><td>string</td><td>「個人」or「飲食店もしくは法人」</td></tr>
+              <tr><td><strong>paySite</strong></td><td>string</td><td>支払い条件</td></tr>
+              <tr><td><strong>payMethod</strong></td><td>number</td><td>0: 振込 / 1: カード</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. 既存会社への追加登録 ===== -->
+    <section class="section" id="sec7">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <h2 class="section-title">既存会社への追加ユーザー登録</h2>
+      </div>
+      <p>同じ会社に複数ユーザーを追加する場合の手順です。</p>
+      <ol>
+        <li><strong>同じ招待コード</strong>を新しいユーザーに渡す</li>
+        <li>ユーザーがアプリで通常の登録手順を実施</li>
+        <li><code>companyJoin</code> API により同じ会社に自動的に紐付けされる</li>
+      </ol>
+      <div class="info">既存の招待コードをそのまま使い回すだけでOKです。追加のFirestore操作は不要です。</div>
+    </section>
+
+    <!-- ===== 8. トラブルシューティング ===== -->
+    <section class="section" id="sec8">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <h2 class="section-title">トラブルシューティング</h2>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">🔑 「入力された招待コードは見つかりませんでした。」</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">招待コード（Company ドキュメントID）が Firestore に存在しない</div>
+          <div class="trouble-fix">Firebase Console で <code>version/1/companies/</code> 配下に該当ドキュメントが存在するか確認</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause"><code>name</code> フィールドが空</div>
+          <div class="trouble-fix">Company ドキュメントの <code>name</code> が設定されているか確認</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">📧 「メールアドレスは既に使用されています」</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">同じメールアドレスで Firebase Auth に既にユーザーが存在</div>
+          <div class="trouble-fix">Firebase Console &gt; Authentication で該当ユーザーを確認。必要に応じてパスワードリセットまたはユーザー削除</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">📦 登録完了後にデータが表示されない</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">Firestore への書き込みが部分的に失敗した可能性</div>
+          <div class="trouble-fix"><code>version/1/companyUsers/{uid}</code> が存在するか確認</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause"><code>companyDocument</code> フィールドが不正</div>
+          <div class="trouble-fix"><code>companyDocument</code> フィールドが正しい招待コードと一致しているか確認</div>
+        </div>
+        <div class="trouble-row">
+          <div class="trouble-cause">users データが欠落</div>
+          <div class="trouble-fix"><code>version/1/users/</code> 配下に該当ユーザーのデータがあるか確認</div>
+        </div>
+      </div>
+
+      <div class="trouble-group">
+        <div class="trouble-header">🔒 ログインできない</div>
+        <div class="trouble-row">
+          <div class="trouble-cause">Firebase Auth のユーザーが存在するが Firestore データが不整合</div>
+          <div class="trouble-fix">Firebase Auth でユーザーの存在を確認し、<code>version/1/companyUsers/{uid}</code> のデータを確認。必要に応じて CompanyUser ドキュメントを手動作成</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. Firestoreデータ構造 ===== -->
+    <section class="section" id="sec9">
+      <div class="section-header">
+        <div class="section-num">📂</div>
+        <h2 class="section-title">参考: Firestore データ構造</h2>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">companies</h3>
+        <p><code>version/1/companies/{companyDocument}</code></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フィールド</th><th>型</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>name</strong></td><td>string</td><td>会社名</td></tr>
+              <tr><td><strong>createdAt</strong></td><td>timestamp</td><td>作成日時</td></tr>
+              <tr><td><strong>updatedAt</strong></td><td>timestamp</td><td>更新日時</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">companyUsers</h3>
+        <p><code>version/1/companyUsers/{firebaseUid}</code></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フィールド</th><th>型</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>firebaseUid</strong></td><td>string</td><td>Firebase UID</td></tr>
+              <tr><td><strong>companyDocument</strong></td><td>string</td><td>所属会社ID</td></tr>
+              <tr><td><strong>email</strong></td><td>string</td><td>メールアドレス</td></tr>
+              <tr><td><strong>name</strong></td><td>string</td><td>ユーザー名</td></tr>
+              <tr><td><strong>isAdmin</strong></td><td>boolean</td><td>管理者フラグ</td></tr>
+              <tr><td><strong>createdAt</strong></td><td>timestamp</td><td>作成日時</td></tr>
+              <tr><td><strong>updatedAt</strong></td><td>timestamp</td><td>更新日時</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">users</h3>
+        <p><code>version/1/users/{firebaseUid}</code></p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>フィールド</th><th>型</th><th>説明</th></tr></thead>
+            <tbody>
+              <tr><td><strong>name</strong></td><td>string</td><td>ユーザー名</td></tr>
+              <tr><td><strong>firebaseUId</strong></td><td>string</td><td>Firebase UID</td></tr>
+              <tr><td><strong>companyDocument</strong></td><td>string</td><td>所属会社ID</td></tr>
+              <tr><td><strong>userType</strong></td><td>number</td><td>決済タイプ</td></tr>
+              <tr><td><strong>icon</strong></td><td>object</td><td>プロフィール画像</td></tr>
+              <tr><td><strong>postCode</strong></td><td>string</td><td>郵便番号</td></tr>
+              <tr><td><strong>city / town / area</strong></td><td>string</td><td>住所</td></tr>
+              <tr><td><strong>tel / mobile</strong></td><td>string</td><td>電話番号</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="contact-box">
+        <h3>お問い合わせ</h3>
+        <p>本手順書に関するご不明点は、運営チームまでお問い合わせください。</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  // アクティブナビ
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
